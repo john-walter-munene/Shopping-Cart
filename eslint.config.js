@@ -16,7 +16,11 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: { 
-        ...globals.vitest
+        ...globals.vitest,
+        console: 'readonly',
+        fetch: 'readonly',
+        async: 'readonly',
+        alert: 'readonly',
       },
       parserOptions: {
         ecmaVersion: 'latest',

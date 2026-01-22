@@ -1,32 +1,33 @@
 function Footer() {
     return (
-        <div className="cinestack-footer">
+        <div className="cartify-footer">
             <div className="company-footer-desc">
-                <h3>CineStack</h3>
-                <p>A modern hub for discovering and enjoying movies.</p>
+                <h3>Cartify</h3>
+                <p>A modern digital shop for smarter online purchases.</p>
             </div>
 
             <div className="services-listed">
-                <h3>Services</h3>
+                <h3>Shop</h3>
                 <ul>
-                    <li>Start watching</li>
-                    <li>Browse movies</li>
-                    <li>My List</li>
+                    <li>Browse products</li>
+                    <li>View cart</li>
+                    <li>Checkout</li>
                 </ul>
             </div>
 
-            <div className="about-cinestack">
+            <div className="about-cartify">
                 <h3>Company</h3>
                 <ul>
                     <li>About</li>
-                    <li>Jornal</li>
+                    <li>Journal</li>
                     <li>Contact</li>
                 </ul>
             </div>
 
             <div className="stay-updated">
                 <h3>Newsletter</h3>
-                <p>Get occasional insights on movies, curation, and recommendations.</p>
+                <p>Get occasional updates on products, deals, and shopping tips.</p>
+
                 <div className="data-form">
                     <form action="">
                         <input type="text" />
