@@ -3,82 +3,94 @@ import PropTypes from "prop-types";
 import { NavBar } from "../NavBar";
 import { Footer } from "../Footer";
 
-function CineStackIntro() {
+function CartifyIntro() {
     return (
-        <div className="movie-hub-intro">
-            <p>Discover, track, and watch movies worth your time For movie lovers, casual viewers, and cinephiles</p>
+        <div className="shop-intro">
+            <p>
+                Discover, compare, and buy digital products with confidence.
+                Built for creators, professionals, and everyday shoppers.
+            </p>
 
-            <h1>Movies that actually matter</h1>
+            <h1>Products that are actually worth buying</h1>
 
-            <p>CineStack helps you discover great movies, keep track of what you want to watch, and spend less time 
-                scrolling and more time enjoying films you’ll love.</p>
+            <p>
+                Cartify helps you find quality products, manage your cart,
+                and checkout without friction — so you spend less time browsing
+                and more time buying what matters.
+            </p>
 
-            <button>Explore tha catalog</button>
+            <button>Explore the shop</button>
         </div>
     );
 }
 
-function  MovieStats() {
+function ShoppingStats() {
     return (
-        <div className="movie-stats">
+        <div className="shopping-stats">
             <h2>WHAT THE NUMBERS ARE SAYING</h2>
 
             <div className="stats-house">
-                <div className="start-card">
-                    <p>40%</p>
-                    <p>of viewers abandon a movie in the first 10 minutes</p>
+                <div className="stat-card">
+                    <p>58%</p>
+                    <p>of shoppers abandon carts due to decision overload</p>
                 </div>
-                <div className="start-card">
-                    <p>65%</p>
-                    <p>say it’s hard to find something worth watching</p>
+                <div className="stat-card">
+                    <p>72%</p>
+                    <p>say it’s hard to trust product quality online</p>
                 </div>
-                <div className="start-card">
-                    <p>3 platforms</p>
-                    <p>to search before choosing one movie</p>
+                <div className="stat-card">
+                    <p>4 stores</p>
+                    <p>visited before committing to one purchase</p>
                 </div>
             </div>
         </div>
     );
 }
 
-const cinestackProductDescriptionCards = [
+const cartifyProductDescriptionCards = [
     {
-        problem: 'There’s too much, but nothing feels right',
-        description: 'Endless catalogs make it harder to decide. Great movies get buried, and choice fatigue takes over.',
+        problem: "There are too many products, but nothing feels right",
+        description:
+            "Large marketplaces overwhelm buyers and bury quality products under noise.",
     },
     {
-        problem: 'I forget movies I actually wanted to watch',
-        description: 'Trailers, recommendations, screenshots — then it’s gone. No simple place to save and track what caught your interest.',
+        problem: "I lose products I was interested in",
+        description:
+            "You compare items, close tabs, and forget what actually mattered.",
     },
     {
-        problem: 'I never know if a movie is actually good',
-        description: 'Ratings are scattered, reviews are noisy, and it’s hard to know what aligns with your taste',
+        problem: "I don’t know if a product is actually good",
+        description:
+            "Reviews are unreliable, ratings are inflated, and trust is unclear.",
     },
     {
-        problem: 'I stop watching halfway through',
-        description: 'You lose track of where you left off or forget why you started in the first place.',
-    }, 
+        problem: "I abandon my cart halfway",
+        description:
+            "Too many decisions, unclear value, or a frustrating checkout flow.",
+    },
     {
-        problem: 'Recommendations don’t get me',
-        description: 'Most platforms push what’s popular, not what fits your mood or interests.',
+        problem: "Recommendations don’t fit my needs",
+        description:
+            "Most stores push trends, not what you’re actually shopping for.",
     },
 ];
 
-function ProductDescription( { productDescriptionCards }) {
-
+function ProductDescription({ productDescriptionCards }) {
     let copyOfProductDescriptionCards = [...productDescriptionCards];
 
     let productCards = [];
 
     copyOfProductDescriptionCards.forEach(productCard => {
         productCards.push(<ProductDescriptionCard productCard={productCard} />);
-    })
+    });
 
     return (
-        <div className="cinestack-product-desc">
-            <p>You open a streaming app, scroll endlessly, and still feel unsure. You’ve got access to thousands of movies, 
-                but finding the right one feels harder than ever. Here’s what we hear from movie fans all the time:</p>
-            <div className="cinestack-description-cards">{productCards}</div>
+        <div className="cartify-product-desc">
+            <p>
+                You open an online store, scroll endlessly, compare options,
+                and still feel unsure. Here’s what shoppers tell us all the time:
+            </p>
+            <div className="cartify-description-cards">{productCards}</div>
         </div>
     );
 }
@@ -87,119 +99,125 @@ ProductDescription.propTypes = {
     productDescriptionCards: PropTypes.array.isRequired,
 };
 
-
 function ProductDescriptionCard({ productCard }) {
     return (
-         <div className="product-card">
-                <h3>{productCard.problem}</h3>
-                <p>{productCard.description}</p>
+        <div className="home-product-card">
+            <h3>{productCard.problem}</h3>
+            <p>{productCard.description}</p>
         </div>
     );
-
 }
 
 ProductDescriptionCard.propTypes = {
     productCard: PropTypes.object,
-}
+};
 
-
-function CineStackDescription() {
+function CartifyDescription() {
     return (
-        <div className="cinestack-description">
-            {<MovieStats />}
-            {<ProductDescription productDescriptionCards={cinestackProductDescriptionCards} />}
+        <div className="cartify-description">
+            {<ShoppingStats />}
+            {<ProductDescription productDescriptionCards={cartifyProductDescriptionCards} />}
         </div>
     );
 }
 
-const cinestackServices = [
+const cartifyServices = [
     {
-        service: 'Curated discovery',
-        description: 'Explore hand-picked collections, trending films, and hidden gems without endless scrolling.',
-        action: 'Browse movies →',
+        service: "Curated products",
+        description:
+            "Browse high-quality digital products selected for real value.",
+        action: "Browse products →",
     },
     {
-        service: 'Personalized watchlists',
-        description: 'Save movies, organize them by mood or genre, and never lose track of what you want to watch.',
-        action: 'Build your list →',
+        service: "Smart cart",
+        description:
+            "Save items, compare options, and return to decisions anytime.",
+        action: "View cart →",
     },
     {
-        service: 'Smart recommendations',
-        description: 'Get suggestions based on what you watch, what you finish, and what you skip.',
-        action: 'See recommendations →',
+        service: "Trusted recommendations",
+        description:
+            "Suggestions based on intent and behavior, not popularity.",
+        action: "See suggestions →",
     },
     {
-        service: 'Continue watching',
-        description: 'Pick up exactly where you left off, across devices, without searching.',
-        action: 'Resume watching →',
+        service: "Fast checkout",
+        description:
+            "A clean, frictionless checkout experience across devices.",
+        action: "Checkout →",
     },
 ];
 
-function CineStackServiceCard({ serviceCard }) {
+function CartifyServiceCard({ serviceCard }) {
     return (
-        <div className="cinestack-service-card">
+        <div className="cartify-service-card">
             <p>{serviceCard.service}</p>
             <p>{serviceCard.description}</p>
-            <button className="cinestack-service-card-button">{serviceCard.action}</button>
+            <button className="cartify-service-card-button">{serviceCard.action}</button>
         </div>
     );
-
 }
 
-function CineStackServices({ services }) {
+CartifyServiceCard.propTypes = {
+    serviceCard: PropTypes.object.isRequired,
+};
+
+function CartifyServices({ services }) {
     let copyOfServices = services.slice();
 
     let servicesCards = [];
 
     for (let service of copyOfServices) {
-        servicesCards.push(<CineStackServiceCard serviceCard={service} />);
+        servicesCards.push(
+            <CartifyServiceCard serviceCard={service} />
+        );
     }
 
     return (
-        <div className="cinestack-services">
+        <div className="cartify-services">
             <p>SERVICES</p>
             <h2>What we offer</h2>
-            <p>A better way to discover and enjoy movies.</p>
-            <div className="cinestack-service-cards">{servicesCards}</div>
+            <p>A better way to shop online.</p>
+            <div className="cartify-service-cards">{servicesCards}</div>
         </div>
     );
 }
 
-CineStackServices.propTypes = {
+CartifyServices.propTypes = {
     services: PropTypes.array.isRequired,
-}
+};
 
-const cineStackResults = [
+const cartifyResults = [
     {
-        result: 'Less scrolling',
-        description: 'Find something worth watching faster',
-        icon: '',
+        result: "Faster decisions",
+        description: "Find the right product without overthinking",
+        icon: "",
     },
     {
-        result: 'Better picks',
-        description: 'Recommendations that match your taste',
-        icon: '',
+        result: "More confidence",
+        description: "Understand what you’re buying before checkout",
+        icon: "",
     },
     {
-        result: 'Stay organized',
-        description: 'All your movies in one place',
-        icon: '',
+        result: "Stay organized",
+        description: "All saved items and carts in one place",
+        icon: "",
     },
     {
-        result: 'Finish more movies',
-        description: 'No more forgotten half-watches',
-        icon: '',
+        result: "Fewer abandoned carts",
+        description: "Clear value and smooth checkout flow",
+        icon: "",
     },
     {
-        result: 'Enjoy the experience',
-        description: 'Focus on watching, not deciding',
-        icon: '',
+        result: "Enjoy shopping again",
+        description: "Focus on buying, not doubting",
+        icon: "",
     },
 ];
 
-function CineSackExpectationCard({ resultCard }) {
+function CartifyExpectationCard({ resultCard }) {
     return (
-        <div className="constack-result-card">
+        <div className="cartify-result-card">
             <img src={resultCard.icon} alt="" />
             <h3>{resultCard.result}</h3>
             <p>{resultCard.description}</p>
@@ -207,58 +225,57 @@ function CineSackExpectationCard({ resultCard }) {
     );
 }
 
-CineSackExpectationCard.propTypes = {
+CartifyExpectationCard.propTypes = {
     resultCard: PropTypes.object.isRequired,
 };
 
-function CineStackExpectations({ results }) {
+function CartifyExpectations({ results }) {
     let copyOfResults = [...results];
 
-    let resultCards = copyOfResults.map(resultCard => (<CineSackExpectationCard resultCard={resultCard} />));
+    let resultCards = copyOfResults.map(resultCard => (<CartifyExpectationCard resultCard={resultCard} />));
 
     return (
         <div className="results">
             <p>Results</p>
             <h2>What you can Expect</h2>
-            <p>A movie experience designed around you.</p>
-            <div className="cinestack-results-cards">{resultCards}</div>
+            <p>A shopping experience designed around you.</p>
+            <div className="cartify-results-cards">{resultCards}</div>
         </div>
     );
 }
 
-CineStackExpectations.propTypes = {
+CartifyExpectations.propTypes = {
     results: PropTypes.array.isRequired,
 };
 
-const cineStackChoiceReasons = [
-    {   
-        icon: '',
-        option: 'Traditional platforms',
+const cartifyChoiceReasons = [
+    {
+        icon: "",
+        option: "Traditional stores",
         bias: [
-            'Endless scrolling',
-            'Generic recommendations',
-            'Forget where you left off',
-            'No personal curation',
+            "Overwhelming catalogs",
+            "Pushy upsells",
+            "Unclear product value",
+            "Friction-heavy checkout",
         ],
     },
-    {   
-        icon: '',
-        option: 'The CineStack way',
+    {
+        icon: "",
+        option: "The Cartify way",
         bias: [
-            'Curated collections with context',
-            'Watchlists that actually matter',
-            'Progress tracking and reminders',
-            'A clean, distraction-free experience',
-        ]
-    }
-]
+            "Curated product selection",
+            "Clear comparisons",
+            "Saved carts & intent tracking",
+            "Clean, focused checkout",
+        ],
+    },
+];
 
-function CineStackAsYourChoice({ reasons }) {
+function WhyCartify({ reasons }) {
     let copyOfReasons = reasons.slice();
 
     let reasonsCards = copyOfReasons.map(reason => {
-
-        let symbol = reason.option === 'Traditional platforms' ? '✗' : '✓'
+        let symbol = reason.option === "Traditional stores" ? "✗" : "✓";
 
         return (
             <div className="reason-card">
@@ -266,50 +283,54 @@ function CineStackAsYourChoice({ reasons }) {
                     <img src={reason.icon} alt="" />
                     <p>{reason.option}</p>
                 </div>
-                <ul>{reason.bias.map((supportText) => (<li>{symbol}{' '}{supportText}</li>))}</ul>
+                
+                <ul>{reason.bias.map(text => (<li>{symbol} {text}</li>))}</ul>
             </div>
         );
-    })
+    });
 
     return (
-        <div className="why-cinestack">
-            <p>Why CineStack</p>
-            <h2>Not just another streaming catalog</h2>
-            <p>Most platforms optimize for volume and trends. CineStack focuses on discovery, clarity, and continuity — helping you build a 
-                personal movie space that evolves with your taste.</p>
-            <div className="cinestack-choice">{reasonsCards}</div>
+        <div className="why-cartify">
+            <p>Why Cartify</p>
+            <h2>Not just another online store</h2>
+            <p>
+                Most stores optimize for volume and impulse. Cartify focuses on
+                clarity, intent, and confidence — helping you make better
+                purchase decisions.
+            </p>
+            <div className="cartify-choice">{reasonsCards}</div>
         </div>
     );
 }
 
-CineStackAsYourChoice.propTypes = {
+WhyCartify.propTypes = {
     reasons: PropTypes.array.isRequired,
 };
 
-function CineStackNextSteps() {
+function CartifyNextSteps() {
     return (
-        <div className="cinstack-next-steps">
-            <h2>Ready to enjoy movies again?</h2>
-            <p>Stop scrolling. Start watching something worth your time.</p>
+        <div className="cartify-next-steps">
+            <h2>Ready to shop smarter?</h2>
+            <p>Stop browsing. Start buying with confidence.</p>
 
             <div className="quick-next-steps">
-                <button>Start watching</button>
-                <button>Explore CineStack</button>
+                <button>Browse products</button>
+                <button>View cart</button>
             </div>
         </div>
     );
 }
 
 function Home() {
-    return(
+    return (
         <div className="home-page">
             {<NavBar />}
-            {<CineStackIntro />}
-            {<CineStackDescription />}
-            {<CineStackServices services={cinestackServices} />}
-            {<CineStackExpectations results={cineStackResults} />}
-            {<CineStackAsYourChoice reasons={cineStackChoiceReasons} />}
-            {<CineStackNextSteps />}
+            {<CartifyIntro />}
+            {<CartifyDescription />}
+            {<CartifyServices services={cartifyServices} />}
+            {<CartifyExpectations results={cartifyResults} />}
+            {<WhyCartify reasons={cartifyChoiceReasons} />}
+            {<CartifyNextSteps />}
             {<Footer />}
         </div>
     );
