@@ -26,6 +26,7 @@ function ShoppingPage({ products, setProducts, cart, setCart }) {
                 }
             } catch (error) {
                 if ( error && !ignore) {
+                    console.log(error);
                     setError(true);
                     setLoading(false);
                 }
@@ -38,8 +39,7 @@ function ShoppingPage({ products, setProducts, cart, setCart }) {
     },[setProducts]);
 
     let numberOfItemsInCart = countItemsRecursive(cart);
-    const copyOfShopProducts = [...products];
-    const productsOnDisplay = copyOfShopProducts.map((product) => (<ProductCard product={product} key={product.id} cart={cart} setCart={setCart} />));
+    const productsOnDisplay = products.map((product) => (<ProductCard product={product} key={product.id} cart={cart} setCart={setCart} />));
     
     // Handle error and loading states
     if (loading) return (<ShoppingPageWrapper content={<LoadingProducts />} cartItemsCount={numberOfItemsInCart} />);
@@ -51,7 +51,7 @@ function ShoppingPage({ products, setProducts, cart, setCart }) {
 
 function ShoppingPageWrapper({ content, cartItemsCount }) {
     return (
-         <div className="shop-page">
+         <div className="shop-page" role="main">
             <NavBar displayCartItemsCount={true} cartItemsCount={cartItemsCount}  />
             <div className="products-in-shop">{content}</div>
             <Footer />
@@ -95,6 +95,8 @@ function ProductCard({ product, cart, setCart }) {
     const [quantity, setQuantity] = useState(0);
 
     const { image, title, description, price, id } = product;
+
+    // Explicit final price.
     const finalPrice = formatNumber(quantity * price);
 
     const handleQuantityChange = (event) => {
@@ -139,7 +141,7 @@ function ProductCard({ product, cart, setCart }) {
     }
 
     return (
-        <div className="product-card">
+        <div className="product-card" data-testid={id}>
             <img src={image} alt={title} />
             <div className="product-details">
                 <h3>{title}</h3>
@@ -148,8 +150,8 @@ function ProductCard({ product, cart, setCart }) {
             </div>
 
             <div className="product-quantity">
-                <label htmlFor="quantity"><p>quantity</p></label>
-                <input type="number" id="quantity" value={quantity} min={0} max={999}
+                <label htmlFor={`quantity-${id}`}><p>quantity</p></label>
+                <input type="number" id={`quantity-${id}`} value={quantity} min={0} max={999}
                     onChange={(event) => handleQuantityChange(event)} onBlur={handleBlur} />
             </div>
             <div className="product-price"> Final Price ${finalPrice}</div>

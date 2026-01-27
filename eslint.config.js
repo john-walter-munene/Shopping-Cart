@@ -21,6 +21,7 @@ export default defineConfig([
         fetch: 'readonly',
         async: 'readonly',
         alert: 'readonly',
+        window: 'readonly',
       },
       parserOptions: {
         ecmaVersion: 'latest',

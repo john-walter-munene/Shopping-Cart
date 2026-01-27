@@ -1,46 +1,40 @@
-import { render, screen } from "@testing-library/react";
-import { describe, test, expect } from "vitest";
+import { describe, expect } from "vitest";
+import { screen, render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 import { NavBar } from "../components/NavBar";
 
-describe("NavBar", () => {
-    const navLinks = ["Home", "Shop", "Cart"];
+describe("Navigation Bar", () => {
+    test('Renders navigation structure and correct links', () => {
+        const navLinks = [
+            { label: "Home", path: "/" },
+            { label: "Shop", path: "/shop" },
+            { label: "Cart", path: "/cart" },
+            { label: "unknown", path: "/unknown" },
+        ];
+
+        render(
+            <MemoryRouter>
+                <NavBar navigationLinks={navLinks} />
+            </MemoryRouter>
+        );
+
+        const navigationElements = screen.getByRole('navigation');
+        expect(navigationElements).toBeDefined();
+        expect(navigationElements.children.length).toBe(navLinks.length); // safer
+
+        navLinks.forEach((link) => expect(screen.getByRole('link', { name: link.label })).toHaveAttribute('href', link.path));
+    });
     
-    test("renders a navigation container", () => {
-        // Arrange
-        render(<NavBar navigationLinks={navLinks} />);
+    test('Navigation bar shows the number of items in the cart correctly', () => {
+        const { container } = render(
+            <MemoryRouter>
+                <NavBar displayCartItemsCount={true} cartItemsCount={10} />
+            </MemoryRouter>
+        );
 
-        // Assert
-        const nav = screen.getByRole("navigation");
-        expect(nav).toBeInTheDocument();
-        expect(nav).toBeDefined();
-        expect(nav).toHaveClass("navigation-bar");
-  });
-
-    test("renders three navigation buttons", () => {
-      // Arrange
-      render(<NavBar navigationLinks={navLinks} />);
-
-      // Act
-      const buttons = screen.getAllByRole("button");
-      
-      // Assert
-      expect(buttons).toHaveLength(3);
+        expect(screen.getByTestId('cart-items-count')).toBeInTheDocument();
+        const itemsCount = container.querySelector('.cart-items-count-display p');
+        expect(Number(itemsCount.textContent)).toBe(10);
     });
-
-    test("each navigation button has correct text and classname", () => {
-        render(<NavBar navigationLinks={navLinks} />);
-
-        const buttons = screen.getAllByRole("button");
-      
-        buttons.forEach((button, index) => {
-          expect(button).toHaveClass("navigation-button");
-          expect(button).toHaveTextContent(navLinks[index]);
-        });
-    });
-
-    test("matches snapshot", () => {
-      const { container } = render(<NavBar navgationLinks={navLinks} />);
-      expect(container).toMatchSnapshot();
-    })
 });
