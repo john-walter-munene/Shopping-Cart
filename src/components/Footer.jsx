@@ -30,8 +30,8 @@ function Footer() {
 
                 <div className="data-form">
                     <form action="">
-                        <input type="text" />
-                        <label htmlFor=""><p>Email</p></label>
+                        <input type="text" id="email"/>
+                        <label htmlFor="email"><p>Email</p></label>
                     </form>
                 </div>
             </div>

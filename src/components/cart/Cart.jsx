@@ -16,7 +16,7 @@ function ShoppingCart({ cart, setCart }) {
 
 function ShoppingCartWrapper({ content, cartItemsCount }) {
     return (
-        <div className="cart-page">
+        <div className="cart-page" role="main">
             <NavBar displayCartItemsCount={true} cartItemsCount={cartItemsCount} />
             {content}
             <Footer />
@@ -60,12 +60,14 @@ function CartItems({ cart, setCart }) {
         (<CartItem item={cartItem} key={cartItem.id} removeItemCategory={handleProductCategoryRemoval} 
             increaseItems={handleItemsIncreaseInProductCategory} decreaseItems={handleItemsDecreaseInProductCategory} />));
 
+    let totalPriceOfItems = formatNumber(countPriceRecursive(copyOfCartItems));
+
     return (
         <div className="cart-items">
             <h2>Your Cart</h2> 
             {cartItems}
             <h3>Total Items {countItemsRecursive(copyOfCartItems)}</h3>
-            <h3>Total Price {countPriceRecursive(copyOfCartItems)}</h3>
+            <h3 data-testid="total-price">Total Price {totalPriceOfItems}</h3>
         </div>
     );
 }
@@ -83,9 +85,9 @@ function CartItem({ item, removeItemCategory, increaseItems, decreaseItems  }) {
                 <p>Quantity: {quantity}</p>
                 <p>price: {totalPrice}</p>
                 <div className="cart-item-action">
-                    <button onClick={() => removeItemCategory(id)}>Remove</button>
-                    <button onClick={() => decreaseItems(id)}>-</button>
-                    <button onClick={() => increaseItems(id)}>+</button> 
+                    <button onClick={() => removeItemCategory(id)} >Remove</button>
+                    <button onClick={() => decreaseItems(id)} >-</button>
+                    <button onClick={() => increaseItems(id)} >+</button> 
                 </div>
             </div>
         </div>

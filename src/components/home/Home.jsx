@@ -168,9 +168,7 @@ function CartifyServices({ services }) {
     let servicesCards = [];
 
     for (let service of copyOfServices) {
-        servicesCards.push(
-            <CartifyServiceCard serviceCard={service} />
-        );
+        servicesCards.push(<CartifyServiceCard serviceCard={service} />);
     }
 
     return (
@@ -323,7 +321,7 @@ function CartifyNextSteps() {
 
 function Home() {
     return (
-        <div className="home-page">
+        <div className="home-page" role="main">
             {<NavBar />}
             {<CartifyIntro />}
             {<CartifyDescription />}

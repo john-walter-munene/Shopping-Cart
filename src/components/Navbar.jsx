@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router";
+// import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const navLinks = [
     { label: "Home", path: "/" },
@@ -8,7 +9,7 @@ const navLinks = [
 ];
 
 function NavigationButton({ label, path }) {
-    return (<Link to={path} className="navigation-button">{label}</Link>);
+    return (<Link to={path} className="navigation-button" data-testid={label}>{label}</Link>);
 }
 
 NavigationButton.propTypes = {
@@ -16,21 +17,21 @@ NavigationButton.propTypes = {
     path: PropTypes.string.isRequired,
 };
 
-function NavBar({ navgationLinks = navLinks, displayCartItemsCount=false, cartItemsCount }) {
+function NavBar({ navigationLinks = navLinks, displayCartItemsCount=false, cartItemsCount }) {
 
     
     return (
         <div className="application-header">
             <ApplicationHead />
 
-            <nav className="navigation-bar">
-                {navgationLinks.map(link => (
+            <nav className="navigation-bar" role="navigation">
+                {navigationLinks.map(link => (
                     <NavigationButton key={link.path} label={link.label} path={link.path} />
                 ))}
             </nav>
 
             {displayCartItemsCount && 
-                <div className="cart-items-count-display">
+                <div className="cart-items-count-display" data-testid="cart-items-count">
                     <img src="" alt="app devloper" />
                     <img src="" alt="cart-icon" />
                     <p>{cartItemsCount}</p>
@@ -40,7 +41,7 @@ function NavBar({ navgationLinks = navLinks, displayCartItemsCount=false, cartIt
 }
 
 NavBar.propTypes = {
-    navgationLinks: PropTypes.array,
+    navigationLinks: PropTypes.array,
     displayCartItemsCount: PropTypes.bool,
     cartItemsCount: PropTypes.number,
 };
