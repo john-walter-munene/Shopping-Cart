@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import styles from "../assets/styles/Shop.module.css";
 import { formatNumber, countItemsRecursive, trimByWords } from "./utils";
-import { NavBar } from "./NavBar";
-import { Footer } from "./Footer";
+import { NavBar } from "./NavBar.jsx";
+import { Footer } from "./Footer.jsx";
 
 function ShoppingPage({ products, setProducts, cart, setCart }) {
     const [error, setError] = useState(null);

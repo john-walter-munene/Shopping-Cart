@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import styles from "../assets/styles/Cart.module.css";
 import { countItemsRecursive, countPriceRecursive, formatNumber } from "./utils";
-import { NavBar } from "./NavBar";
-import { Footer } from "./Footer";
+import { NavBar } from "./NavBar.jsx";
+import { Footer } from "./Footer.jsx";
 
 function ShoppingCart({ cart, setCart }) {
 
