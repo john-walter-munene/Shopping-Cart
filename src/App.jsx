@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
 // Application specific components
-import { Home } from './components/Home';
-import { ShoppingPage } from './components/Shop';
-import { ShoppingCart } from './components/Cart';
-import { ErrorPage } from './components/Errorpage';
+import { Home } from './components/Home.jsx';
+import { ShoppingPage } from './components/Shop.jsx';
+import { ShoppingCart } from './components/Cart.jsx';
+import { ErrorPage } from './components/Errorpage.jsx';
 
 // Global styles
 import './assets/styles/App.css';
