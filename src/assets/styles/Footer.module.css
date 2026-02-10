@@ -1,0 +1,59 @@
+.cartify-footer {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(47, 13, 104);
+    padding: 20px;
+    border: 2px solid grey;
+    color: aliceblue;
+    gap: 30px;
+}
+
+.company-footer-desc,
+.services-listed,
+.about-cartify,
+.stay-updated {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 220px;
+    width: 300px;
+}
+
+.company-footer-desc img {
+    width: 65px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.company-footer-desc h3 {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    font-size: 38px;
+}
+
+.company-footer-desc p,
+.stay-updated p {
+    font-size: 16px;
+    font-weight: 510;
+}
+
+.company-footer-desc h3,
+.services-listed h3,
+.about-cartify h3,
+.stay-updated h3 {
+    font-size: 22px;
+}
+
+.services-listed li,
+.about-cartify li {
+    list-style: none;
+    margin-bottom: 20px;
+    font-weight: 510;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Empty Cart */
+.empty-cart {
+    min-height: calc(100vh - 343px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-cart p {
+    font-size: 32px;
+    font-weight: bold;
+    color: rgb(47, 13, 104);
+    padding: 20px;
+}
+
+/* Populated cart */
+.cart-items {
+    min-height: calc(100vh - 343px);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 20px;
+    background-color: rgb(221, 225, 247);
+}
+
+.cart-items h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: rgb(47, 13, 104);
+    border: 2px solid;
+    border-radius: 20px;
+    background-color: rgb(221, 225, 247);
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    color: rgb(47, 13, 104);
+    gap: 40px;
+    margin-bottom: 10px;
+    align-self: stretch;
+    border-bottom: 2px solid gray;
+    padding: 10px;
+}
+
+.cart-item img {
+    width: 120px;
+    height: 120px;
+}
+
+.cart-item h3 {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.cart-item p {
+    font-size: 18px;
+    font-weight: 540;
+    margin-bottom: 10px;
+}
+
+.cart-item-action button {
+    font-size: 18px;
+    font-weight: 550;
+    margin-right: 10px;
+    background-color: rgb(47, 13, 104);
+    color: aliceblue;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cart-item-action button:nth-child(2),
+.cart-item-action button:nth-child(3) {
+    background-color: green;
+    width: 40px;
+}
+
+.cart-item-action button:first-of-type:hover {
+    border-color: rgb(237, 42, 42);
+    transform: scaleX(1.05);
+}
+
+.cart-item-action button:nth-child(2):hover,
+.cart-item-action button:nth-child(3):hover {
+    background-color: green;
+    transform: scale(1.05);
+}
+
+.cart-items > h3 {
+    text-align: center;
+    color: azure;
+    background-color: rgb(47, 13, 104);
+    font-size: 22px;
+    padding: 15px;
+}
