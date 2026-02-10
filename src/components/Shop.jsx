@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import styles from "../assets/styles/Shop.module.css";
 import { formatNumber, countItemsRecursive, trimByWords } from "./utils";
-import { NavBar } from "./NavBar.jsx";
+import { NavBar } from "./Navbar.jsx";
 import { Footer } from "./Footer.jsx";
 
 function ShoppingPage({ products, setProducts, cart, setCart }) {
