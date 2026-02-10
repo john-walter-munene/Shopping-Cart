@@ -2,7 +2,7 @@
 
 # 🛒 React Shopping Cart Project
 
-[Shopping Cart by John Walter]()
+[Shopping Cart by John Walter](https://shopping-cart-two-indol.vercel.app/)
 
 ## Overview
 
