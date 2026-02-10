@@ -1,13 +1,13 @@
 // Dev testing tools.
 import { describe, expect, test } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
 // Components tied to testing.
-import { Home } from '../components/home/Home';
-import { ShoppingPage } from '../components/shop/Shop';
-import { ShoppingCart } from '../components/cart/Cart';
+import { Home } from '../components/Home';
+import { ShoppingPage } from '../components/Shop';
+import { ShoppingCart } from '../components/Cart';
 
 // Simple helper to render a page with routing context
 function renderWithRouter(userInterface) {
@@ -38,22 +38,22 @@ const routes = [
 
 // Application routes render the correct content.
 describe('App routing', () => {
-    routes.forEach(({ path, component, mainClass, expectedChildren }) => {
-        test(`Renders correct page for route "${path}"`, () => {
-            const { container } = renderWithRouter(component);
+    routes.forEach(({ path, component, expectedChildren }) => {
+        test(`Renders correct page for route "${path}"`, async () => {
+            renderWithRouter(component);
 
             // Navigation is always present
             expect(screen.getByRole('navigation')).toBeInTheDocument();
 
             // Main page container
-            const mainPage = container.querySelector(`.${mainClass}`);
+            const mainPage = screen.getByRole('main');
             expect(mainPage).toBeInTheDocument();
 
             // Confirm expected number of children
             expect(mainPage.children.length).toBe(expectedChildren);
 
             // Footer is always present
-            const footer = container.querySelector('.cartify-footer');
+            const footer = await screen.findByTestId(/cartify-footer/);
             expect(footer).toBeInTheDocument();
         });
     });
@@ -75,22 +75,25 @@ describe('Integration test to confirm that the links ensure correct navigation',
 
     test('Navigation flow: Home → Shop → Cart → Home', async () => {
         const user = userEvent.setup();
-
         render(<MemoryRouter initialEntries={['/']}><AppTestShell /></MemoryRouter>);
 
-        // Home
-        expect(screen.getByRole('main')).toHaveClass('home-page');
+        // Start Home
+        expect(screen.getByRole('main').children.length).toBe(8);
 
-        // Shop
+        // Go to Shop
         await user.click(screen.getByTestId('Shop'));
-        expect(screen.getByRole('main')).toHaveClass('shop-page');
-
-        // Cart
-        await user.click(screen.getByTestId('Cart'));
-        expect(screen.getByRole('main')).toHaveClass('cart-page');
-
-        // Back Home
+        expect(screen.getByRole('main').children.length).toBe(3);
+        
+        // Come back to Home
         await user.click(screen.getByTestId('Home'));
-        expect(screen.getByRole('main')).toHaveClass('home-page');
+        expect(screen.getByRole('main').children.length).toBe(8);
+
+        // Go to Cart
+        await user.click(screen.getByTestId('Cart'));
+        expect(screen.getByRole('main').children.length).toBe(3);
+
+        // Back Home again
+        await user.click(screen.getByTestId('Home'));
+        expect(screen.getByRole('main').children.length).toBe(8);
     });
 });

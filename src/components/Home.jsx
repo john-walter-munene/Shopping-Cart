@@ -1,15 +1,31 @@
+// Dev tools
 import PropTypes from "prop-types";
 
-import { NavBar } from "../NavBar";
-import { Footer } from "../Footer";
+// Components and styles
+import { NavBar } from "./NavBar";
+import { Footer } from "./Footer";
+import styles from "../assets/styles/Home.module.css";
+
+// Page assets
+import curatedProducts from '/src/assets/icons/curated-products.png';
+import smartCart from '/src/assets/icons/smart-cart.png';
+import trustedRecommendations from '/src/assets/icons/trusted-recommendations.png';
+import fastCheckout from '/src/assets/icons/fast-checkout.png';
+
+import resultExpectations from '/src/assets/icons/expectations.png';
+import fasterDecisions from '/src/assets/icons/faster-decisions.png';
+import moreConfidence from '/src/assets/icons/more-confidence.png';
+import stayOrganized from '/src/assets/icons/stay-organized.png';
+import emptyCarts from '/src/assets/icons/empty-carts.png';
+import enjoyShoppingAgain from '/src/assets/icons/enjoy-shopping.png';
+
+import traditionalStores from '/src/assets/icons/traditional-store.png';
+import theCartifyWay from '/src/assets/icons/cartify-way.png';
 
 function CartifyIntro() {
     return (
-        <div className="shop-intro">
-            <p>
-                Discover, compare, and buy digital products with confidence.
-                Built for creators, professionals, and everyday shoppers.
-            </p>
+        <div className={styles["shop-intro"]}>
+            <p>Discover, compare, and buy digital products with confidence. Welcome.</p>
 
             <h1>Products that are actually worth buying</h1>
 
@@ -19,27 +35,29 @@ function CartifyIntro() {
                 and more time buying what matters.
             </p>
 
-            <button>Explore the shop</button>
+            <button>Explore the shop →</button>
         </div>
     );
 }
 
 function ShoppingStats() {
     return (
-        <div className="shopping-stats">
-            <h2>WHAT THE NUMBERS ARE SAYING</h2>
+        <div className={styles["shopping-stats"]}>
+            <h2>What are the numbers saying? 💁‍♂️</h2>
 
-            <div className="stats-house">
-                <div className="stat-card">
+            <div className={styles["stats-house"]}>
+                <div className={styles["stat-card"]}>
                     <p>58%</p>
                     <p>of shoppers abandon carts due to decision overload</p>
                 </div>
-                <div className="stat-card">
+
+                <div className={styles["stat-card"]}>
                     <p>72%</p>
                     <p>say it’s hard to trust product quality online</p>
                 </div>
-                <div className="stat-card">
-                    <p>4 stores</p>
+
+                <div className={styles["stat-card"]}>
+                    <p>4+ stores</p>
                     <p>visited before committing to one purchase</p>
                 </div>
             </div>
@@ -50,28 +68,23 @@ function ShoppingStats() {
 const cartifyProductDescriptionCards = [
     {
         problem: "There are too many products, but nothing feels right",
-        description:
-            "Large marketplaces overwhelm buyers and bury quality products under noise.",
+        description: "Large marketplaces overwhelm buyers and bury quality products under noise.",
     },
     {
         problem: "I lose products I was interested in",
-        description:
-            "You compare items, close tabs, and forget what actually mattered.",
+        description: "You compare items, close tabs, and forget what actually mattered.",
     },
     {
         problem: "I don’t know if a product is actually good",
-        description:
-            "Reviews are unreliable, ratings are inflated, and trust is unclear.",
+        description: "Reviews are unreliable, ratings are inflated, and trust is unclear.",
     },
     {
         problem: "I abandon my cart halfway",
-        description:
-            "Too many decisions, unclear value, or a frustrating checkout flow.",
+        description: "Too many decisions, unclear value, or a frustrating checkout flow.",
     },
     {
         problem: "Recommendations don’t fit my needs",
-        description:
-            "Most stores push trends, not what you’re actually shopping for.",
+        description: "Most stores push trends, not what you’re actually shopping for.",
     },
 ];
 
@@ -85,12 +98,12 @@ function ProductDescription({ productDescriptionCards }) {
     });
 
     return (
-        <div className="cartify-product-desc">
+        <div className={styles["cartify-product-desc"]}>
             <p>
                 You open an online store, scroll endlessly, compare options,
                 and still feel unsure. Here’s what shoppers tell us all the time:
             </p>
-            <div className="cartify-description-cards">{productCards}</div>
+            <div className={styles["cartify-description-cards"]}>{productCards}</div>
         </div>
     );
 }
@@ -101,7 +114,7 @@ ProductDescription.propTypes = {
 
 function ProductDescriptionCard({ productCard }) {
     return (
-        <div className="home-product-card">
+        <div className={styles["home-product-card"]}>
             <h3>{productCard.problem}</h3>
             <p>{productCard.description}</p>
         </div>
@@ -114,7 +127,7 @@ ProductDescriptionCard.propTypes = {
 
 function CartifyDescription() {
     return (
-        <div className="cartify-description">
+        <div className={styles["cartify-description"]}>
             {<ShoppingStats />}
             {<ProductDescription productDescriptionCards={cartifyProductDescriptionCards} />}
         </div>
@@ -122,38 +135,39 @@ function CartifyDescription() {
 }
 
 const cartifyServices = [
-    {
+    {   
+        icon: curatedProducts,
         service: "Curated products",
-        description:
-            "Browse high-quality digital products selected for real value.",
+        description: "Browse high-quality digital products selected for real value.",
         action: "Browse products →",
     },
-    {
+    {   
+        icon: smartCart,
         service: "Smart cart",
-        description:
-            "Save items, compare options, and return to decisions anytime.",
+        description: "Save items, compare options, and return to decisions anytime.",
         action: "View cart →",
     },
-    {
+    {   
+        icon: trustedRecommendations,
         service: "Trusted recommendations",
-        description:
-            "Suggestions based on intent and behavior, not popularity.",
+        description: "Suggestions based on intent and behavior, not popularity.",
         action: "See suggestions →",
     },
-    {
+    {   
+        icon: fastCheckout,
         service: "Fast checkout",
-        description:
-            "A clean, frictionless checkout experience across devices.",
+        description: "A clean, frictionless checkout experience across devices.",
         action: "Checkout →",
     },
 ];
 
 function CartifyServiceCard({ serviceCard }) {
     return (
-        <div className="cartify-service-card">
+        <div className={styles["cartify-service-card"]}>
+            <img src={serviceCard.icon} alt={serviceCard.service} />
             <p>{serviceCard.service}</p>
             <p>{serviceCard.description}</p>
-            <button className="cartify-service-card-button">{serviceCard.action}</button>
+            <button>{serviceCard.action}</button>
         </div>
     );
 }
@@ -172,11 +186,11 @@ function CartifyServices({ services }) {
     }
 
     return (
-        <div className="cartify-services">
+        <div className={styles["cartify-services"]}>
             <p>SERVICES</p>
             <h2>What we offer</h2>
-            <p>A better way to shop online.</p>
-            <div className="cartify-service-cards">{servicesCards}</div>
+            <p>A better way to shop online. It's time to have your sleek digital shooping experience.</p>
+            <div className={styles["cartify-service-cards"]}>{servicesCards}</div>
         </div>
     );
 }
@@ -189,34 +203,34 @@ const cartifyResults = [
     {
         result: "Faster decisions",
         description: "Find the right product without overthinking",
-        icon: "",
+        icon: fasterDecisions,
     },
     {
         result: "More confidence",
         description: "Understand what you’re buying before checkout",
-        icon: "",
+        icon: moreConfidence,
     },
     {
         result: "Stay organized",
         description: "All saved items and carts in one place",
-        icon: "",
+        icon: stayOrganized,
     },
     {
         result: "Fewer abandoned carts",
         description: "Clear value and smooth checkout flow",
-        icon: "",
+        icon: emptyCarts,
     },
     {
         result: "Enjoy shopping again",
         description: "Focus on buying, not doubting",
-        icon: "",
+        icon: enjoyShoppingAgain,
     },
 ];
 
 function CartifyExpectationCard({ resultCard }) {
     return (
-        <div className="cartify-result-card">
-            <img src={resultCard.icon} alt="" />
+        <div className={styles["cartify-result-card"]}>
+            <img src={resultCard.icon} alt={resultCard.result} />
             <h3>{resultCard.result}</h3>
             <p>{resultCard.description}</p>
         </div>
@@ -233,11 +247,11 @@ function CartifyExpectations({ results }) {
     let resultCards = copyOfResults.map(resultCard => (<CartifyExpectationCard resultCard={resultCard} />));
 
     return (
-        <div className="results">
+        <div className={styles["results"]}>
             <p>Results</p>
-            <h2>What you can Expect</h2>
+            <h2>What you can Expect <img src={resultExpectations} alt="expectations"/> </h2>
             <p>A shopping experience designed around you.</p>
-            <div className="cartify-results-cards">{resultCards}</div>
+            <div className={styles["cartify-results-cards"]}>{resultCards}</div>
         </div>
     );
 }
@@ -248,24 +262,14 @@ CartifyExpectations.propTypes = {
 
 const cartifyChoiceReasons = [
     {
-        icon: "",
+        icon: traditionalStores,
         option: "Traditional stores",
-        bias: [
-            "Overwhelming catalogs",
-            "Pushy upsells",
-            "Unclear product value",
-            "Friction-heavy checkout",
-        ],
+        bias: ["Overwhelming catalogs", "Pushy upsells", "Unclear product value", "Friction-heavy checkout",],
     },
     {
-        icon: "",
-        option: "The Cartify way",
-        bias: [
-            "Curated product selection",
-            "Clear comparisons",
-            "Saved carts & intent tracking",
-            "Clean, focused checkout",
-        ],
+        icon: theCartifyWay,
+        option: "The Cartify Way",
+        bias: ["Curated product selection", "Clear comparisons", "Saved carts & intent tracking", "Clean, focused checkout",],
     },
 ];
 
@@ -273,30 +277,36 @@ function WhyCartify({ reasons }) {
     let copyOfReasons = reasons.slice();
 
     let reasonsCards = copyOfReasons.map(reason => {
-        let symbol = reason.option === "Traditional stores" ? "✗" : "✓";
+        let symbol = (reason.option === "Traditional stores") ? "✗" : "✓";
+        let symbolClassName = (reason.option === "Traditional stores") ? 'traditional-store' : 'the-cartify-way';
 
         return (
-            <div className="reason-card">
-                <div className="title">
-                    <img src={reason.icon} alt="" />
+            <div className={styles["reason-card"]}>
+                <div className={styles["title"]}>
+                    <img src={reason.icon} alt={reason.option} />
                     <p>{reason.option}</p>
                 </div>
                 
-                <ul>{reason.bias.map(text => (<li>{symbol} {text}</li>))}</ul>
+                <ul>{reason.bias.map(text => (
+                    <li> 
+                        {<span className={styles[symbolClassName]} >{symbol}</span>}
+                        {text}
+                    </li>))}
+                </ul>
             </div>
         );
     });
 
     return (
-        <div className="why-cartify">
-            <p>Why Cartify</p>
+        <div className={styles["why-cartify"]}>
+            <p>WHY CARTIFY?</p>
             <h2>Not just another online store</h2>
             <p>
                 Most stores optimize for volume and impulse. Cartify focuses on
                 clarity, intent, and confidence — helping you make better
                 purchase decisions.
             </p>
-            <div className="cartify-choice">{reasonsCards}</div>
+            <div className={styles["cartify-choice"]}>{reasonsCards}</div>
         </div>
     );
 }
@@ -307,11 +317,11 @@ WhyCartify.propTypes = {
 
 function CartifyNextSteps() {
     return (
-        <div className="cartify-next-steps">
+        <div className={styles["cartify-next-steps"]}>
             <h2>Ready to shop smarter?</h2>
             <p>Stop browsing. Start buying with confidence.</p>
 
-            <div className="quick-next-steps">
+            <div className={styles["quick-next-steps"]}>
                 <button>Browse products</button>
                 <button>View cart</button>
             </div>
@@ -321,7 +331,7 @@ function CartifyNextSteps() {
 
 function Home() {
     return (
-        <div className="home-page" role="main">
+        <div className={styles["home-page"]} role="main">
             {<NavBar />}
             {<CartifyIntro />}
             {<CartifyDescription />}

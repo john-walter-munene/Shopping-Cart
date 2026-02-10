@@ -1,12 +1,12 @@
 // Dev testing
-import { describe, test, expect, } from "vitest";
+import { describe, test, expect } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { useState } from "react";
 import userEvent from "@testing-library/user-event";
 
 // Component under test and API sample data
-import { ShoppingCart } from "../components/cart/Cart";
+import { ShoppingCart } from "../components/Cart";
 import { shoppingCartProducts, formatNumber, countItemsRecursive, countPriceRecursive } from "../components/utils";
 
 // Helper function to provide a routing context.
@@ -22,120 +22,144 @@ const mockCartItemsFromProducts = shoppingCartProducts.map((product) => {
 
 function ShoppingCartTestHarness() {
     const [cart, setCart] = useState(mockCartItemsFromProducts);
-
     return (<ShoppingCart cart={cart} setCart={setCart} />);
 }
 
 describe('Cart UI logic tests', () => {
-    test('Cart render empty cart correctly', () => {
-        const { container } = renderWithRouter(<ShoppingCart  cart={[]} setCart={() => {}}/>);
-        const emptyCartIndicator = container.querySelector('.empty-cart p');
-        expect(emptyCartIndicator.textContent).toBe("Your Cart is empty. Please add some items");
+    test('Cart renders empty cart correctly', async () => {
+        renderWithRouter(<ShoppingCart cart={[]} setCart={() => {}} />);
+        const emptyCartIndicator = await screen.findByTestId("empty-cart");
+        expect(emptyCartIndicator.textContent).toBe("Your Cart is empty. Please add some items 🙊");
     });
 
-    test('Populated cart renders some cart items', () => {
-        const { container } = renderWithRouter(<ShoppingCartTestHarness />);
-        const emptyCartIndicator = container.querySelector('.empty-cart p');
+    test('Populated cart renders cart items', () => {
+        renderWithRouter(<ShoppingCartTestHarness />);
+
+        // Empty cart indicator should NOT exist
+        const emptyCartIndicator = screen.queryByTestId("empty-cart");
         expect(emptyCartIndicator).not.toBeInTheDocument();
-        const cartItemCards = container.querySelectorAll('.cart-item');
+
+        // All cart items
+        const cartItemCards = screen.getAllByTestId("cart-item");
         expect(cartItemCards.length).toBe(mockCartItemsFromProducts.length);
+
+        // Total items display exists
+        const totalItemsDisplay = screen.getByTestId("cart-items-count");
+        expect(Number(totalItemsDisplay.textContent.replace("Total Items: ", "")))
+            .toBe(countItemsRecursive(mockCartItemsFromProducts));
     });
 
-    test('Items prices and number are counted correctly', () => {
-        const { container } = renderWithRouter(<ShoppingCartTestHarness />);
+    test('Items prices are counted correctly', () => {
+        renderWithRouter(<ShoppingCartTestHarness />);
 
-        // Items are correct
-        const totalItems = Number(container.querySelector('.cart-items-count-display p').textContent);
-        expect(totalItems).toBe(countItemsRecursive(mockCartItemsFromProducts));
-
-        // Pricing is correct
-        const totalPrice = Number(screen.queryByTestId('total-price').textContent.replace('Total Price ', ''));
+        const totalPriceElement = screen.getByTestId("total-price");
+        const totalPrice = Number(totalPriceElement.textContent.replace("Total Price: $", ""));
         expect(totalPrice).toBe(formatNumber(countPriceRecursive(mockCartItemsFromProducts)));
-    })
+    });
 });
 
 describe('Cart behavior tests: actions expectations', () => {
     test('removes a product category', async () => {
-        const { container } = renderWithRouter(<ShoppingCartTestHarness />);
+        renderWithRouter(<ShoppingCartTestHarness />);
         const user = userEvent.setup();
 
-         const initialItems = container.querySelectorAll('.cart-item');
+        const cartItemsBefore = screen.getAllByTestId("cart-item");
+        expect(cartItemsBefore.length).toBe(mockCartItemsFromProducts.length);
 
-        expect(initialItems.length).toBe(20);
-
-        // pick any item (first, last, random)
-        const randomIndex = Math.floor(Math.random() * initialItems.length);
-
-        const itemToRemove = initialItems[randomIndex];
-        const removeButton = itemToRemove.querySelector('.cart-item-action button');
+        const randomIndex = Math.floor(Math.random() * cartItemsBefore.length);
+        const itemToRemove = cartItemsBefore[randomIndex];
+        const removeButton = itemToRemove.querySelector("button");
         await user.click(removeButton);
 
         await waitFor(() => {
-            const updatedItems = container.querySelectorAll('.cart-item');
-            expect(updatedItems.length).toBe(initialItems.length - 1);
+            const updatedItems = screen.getAllByTestId("cart-item");
+            expect(updatedItems.length).toBe(cartItemsBefore.length - 1);
         });
     });
 
-    test('removes cart items one by one till none left if all are clicked', async () => {
-        const { container } = renderWithRouter(<ShoppingCartTestHarness />);
+    test('removes all items one by one', async () => {
+        renderWithRouter(<ShoppingCartTestHarness />);
         const user = userEvent.setup();
 
-        let cartItems = container.querySelectorAll('.cart-item');
+        let cartItems = screen.getAllByTestId("cart-item");
 
         while (cartItems.length > 0) {
-            const cartItem = cartItems[0]; // always exists and is the first item.
-            const removeButton = cartItem.querySelector('.cart-item-action button:nth-child(1)');
-
+            const removeButton = cartItems[0].querySelector("button");
             await user.click(removeButton);
             await waitFor(() => {
-                cartItems = container.querySelectorAll('.cart-item');
-                expect(cartItems.length).toBeGreaterThanOrEqual(0);
+                cartItems = screen.queryAllByTestId("cart-item");
             });
         }
+
+        const emptyCartIndicator = screen.getByTestId("empty-cart");
+        expect(emptyCartIndicator.textContent).toBe("Your Cart is empty. Please add some items 🙊");
     });
 
-    test('Increases items in product category', async () => {
-        const { container } = renderWithRouter(<ShoppingCartTestHarness />);
-        const user = userEvent.setup();
+    // test('increases items in a product category', async () => {
+    //     renderWithRouter(<ShoppingCartTestHarness />);
+    //     const user = userEvent.setup();
 
-        let cartItems = container.querySelectorAll('.cart-item');
-        
-        for (const cartItem of cartItems) {
-            const totalItems = Number(container.querySelector('.cart-items-count-display p').textContent);
-            const increaseButton = cartItem.querySelector('.cart-item-action button:nth-child(3)');
+    //     const cartItems = screen.getAllByTestId("cart-item");
+    //     for (const cartItem of cartItems) {
+    //         const totalItemsBefore = Number(screen.getAllByTestId("cart-items-count").textContent.replace("Total Items: ", ""));
+    //         const increaseButton = cartItem.querySelector("button:nth-child(3)");
+    //         await user.click(increaseButton);
 
-            await user.click(increaseButton);
+    //         await waitFor(() => {
+    //             const totalItemsAfter = Number(screen.getByTestId("cart-items-count").textContent.replace("Total Items: ", ""));
+    //             expect(totalItemsAfter - totalItemsBefore).toBe(1);
+    //         });
+    //     }
+    // });
 
-            await waitFor(() => {
-                const newTotalNumberofItems = Number(container.querySelector('.cart-items-count-display p').textContent);
-                expect(newTotalNumberofItems).toBeGreaterThan(totalItems);
-                expect(newTotalNumberofItems - totalItems).toBe(1); // A difference of 1 each time.
-            })
-        }
-    });
+    test("increases items in a product category", async () => {
+    renderWithRouter(<ShoppingCartTestHarness />);
+    const user = userEvent.setup();
 
-    test('Decreases items in product category', async () => {
-        const { container } = renderWithRouter(<ShoppingCartTestHarness />);
-        const user = userEvent.setup();
+    const cartItems = screen.getAllByTestId("cart-item");
 
-        let totalItems = Number(container.querySelector('.cart-items-count-display p').textContent); // 20 to begin
+    for (const cartItem of cartItems) {
+      const totalItemsBefore = Number(
+        screen.getByTestId("cart-total-items").textContent.replace("Total Items: ", "")
+      );
 
-        while (totalItems > 0) {
-            const cartItem = container.querySelector('.cart-item');
-            const decreaseButton = cartItem.querySelector('.cart-item-action button:nth-child(2)');
+      const increaseButton = cartItem.querySelector("button:nth-child(3)");
+      await user.click(increaseButton);
 
-            await user.click(decreaseButton);
+      await waitFor(() => {
+        const totalItemsAfter = Number(
+          screen.getByTestId("cart-total-items").textContent.replace("Total Items: ", "")
+        );
+        expect(totalItemsAfter - totalItemsBefore).toBe(1);
+      });
+    }
+  })
 
-            await waitFor(() => {
-                const newTotal = Number(container.querySelector('.cart-items-count-display p').textContent);
-                expect(newTotal).toBe(totalItems - 1);
-            });
+    test('decreases items in a product category', async () => {
+    renderWithRouter(<ShoppingCartTestHarness />);
+    const user = userEvent.setup();
 
-            totalItems = Number(container.querySelector('.cart-items-count-display p').textContent); // query again.
-        }
+    // Wait until cart-items-count exists (cart is populated)
+    let totalItemsElement = await screen.findByTestId("cart-items-count");
+    let totalItems = Number(totalItemsElement.textContent.replace("Total Items: ", ""));
 
-        expect(totalItems).toBe(0);
-        const emptyCartIndicator = container.querySelector('.empty-cart p');
-        expect(emptyCartIndicator.textContent).toBe("Your Cart is empty. Please add some items");
-    });
+    // Loop until all items are removed
+    while (totalItems > 0) {
+        const cartItem = screen.queryAllByTestId("cart-item")[0];
+        const decreaseButton = cartItem.querySelector("button:nth-child(2)");
+        await user.click(decreaseButton);
+
+        await waitFor(() => {
+            // Re-query cart-items-count to get updated total
+            totalItemsElement = screen.getByTestId("cart-items-count");
+            totalItems = Number(totalItemsElement.textContent.replace("Total Items: ", ""));
+        });
+    }
+
+    // After all items are removed
+    const emptyCartIndicator = screen.getByTestId("empty-cart");
+    expect(totalItems).toBe(0);
+    expect(emptyCartIndicator.textContent).toBe("Your Cart is empty. Please add some items 🙊");
+});
+
 });

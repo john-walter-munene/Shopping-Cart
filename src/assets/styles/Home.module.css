@@ -1,0 +1,463 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    background-color: aliceblue;
+}
+
+.shop-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 15px;
+    background-color: aliceblue;
+}
+
+.shop-intro p:first-of-type {
+    border:  2px solid rgb(20, 71, 230);
+    border-radius: 50px;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 550;
+    color: rgb(48, 45, 173);
+    background-color: rgb(221, 225, 247);
+    text-align: center;
+}
+
+.shop-intro h1 {
+    color: rgb(47, 13, 104);
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.shop-intro p:last-of-type {
+    font-size: 24px;
+    font-weight: 540;
+    width: 800px;
+    text-align: center;
+    color: rgb(48, 45, 173);
+}
+
+.shop-intro button {
+    font-size: 25px;
+    font-weight: 700;
+    padding: 13px;
+    border-radius: 30px;
+    color: aliceblue;
+    background-color: rgb(47, 13, 104);
+    width: 280px;
+    margin-bottom: 20px;
+}
+
+.shopping-stats {
+    color: black;
+    border: 1.5px solid gray;
+    max-width: 100%;
+    background-color: rgb(228, 236, 243);
+    backdrop-filter: blur(50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 50px;
+}
+
+.shopping-stats h2 {
+    margin: 20px auto;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.stats-house {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    flex: 0 1 300px; 
+    border: 2px solid gray;
+    min-width: 450px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: rgb(244, 255, 255);
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+.stat-card p:first-of-type {
+    font-size: 50px;
+    font-weight: bold;
+    color: rgb(47, 13, 104);
+}
+
+.stat-card p:last-of-type {
+    font-size: 18px;
+    font-weight: 550px;
+    color: rgb(48, 45, 173);
+}
+
+.stat-card:hover {
+    background-color: aliceblue;
+}
+
+.cartify-product-desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid grey;
+    background-color: rgb(230, 235, 246);
+    background-color: rgb(47, 13, 104);
+}
+
+.cartify-product-desc p:first-child {
+    margin: 20px auto;
+    font-size: 22px;
+    width: 700px;
+    text-align: center;
+    font-weight: 600;
+    color: aliceblue;
+    margin-bottom: 35px;
+}
+
+.cartify-description-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.home-product-card {
+    width: 400px;
+    border: 2px solid rgb(48, 45, 173);
+    color: rgb(28, 57, 142);
+    background-color: aliceblue;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 20px;
+    text-align: center;
+    gap: 15px;
+    border-radius: 20px;
+    transition: border-color 0.15s ease, transform 0.15s ease,
+                    color 0.15s ease;
+}
+
+.home-product-card:hover {
+    transform: scale(1.1);
+    background-color: rgb(81, 27, 175, 0.9);
+    color: aliceblue;
+}
+
+.home-product-card h3 {
+    font-size: 20px;
+    text-align: start;
+}
+
+.home-product-card p {
+    font-weight: 520;
+    font-size: 17px;
+    text-align: start;
+}
+
+.cartify-services,
+.why-cartify {
+    border: 2px solid gray;
+    padding: 40px;
+    padding-bottom: 50px;
+    background-color: rgb(228, 236, 243);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cartify-services p:first-child,
+.why-cartify p:first-child {
+    margin-bottom: 15px;
+    color: rgb(48, 45, 173);
+    font-weight: 600;
+}
+
+.cartify-services h2,
+.why-cartify h2 {
+    color: rgb(47, 13, 104);
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.cartify-services h2 + p,
+.why-cartify h2 + p {
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: 550;
+    color: black;
+}
+
+.cartify-service-cards {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+}
+
+.cartify-service-card {
+    width: 240px;
+    height: 280px;
+    background-color: aliceblue;
+    border: 2px solid grey;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-bottom: 15px;
+    transition: border-color 0.15s ease, transform 0.15s ease,
+                    color 0.15s ease;
+}
+
+.cartify-service-card:hover {
+    border: 2px solid rgb(20, 71, 230);
+    transform:  scale(1.02);
+}
+ 
+.cartify-service-card * {
+    margin: 10px 25px;
+    text-align: start;
+}
+
+.cartify-service-card img {
+    width: 60px;
+    height: auto;
+    background-color: rgb(231, 231, 231);
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.cartify-service-card p:first-of-type {
+    color: rgb(47, 13, 104);
+    font-size: 22px;
+    font-weight: 550;
+}
+
+.cartify-service-card p:last-of-type {
+    color: black;
+    font-size: 18px;
+}
+
+.cartify-service-card button {
+    border: none;
+    background: none;
+    color: rgb(20, 71, 230);
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: auto;
+    margin-bottom: 25px;
+}
+
+.results {
+    padding: 30px;
+    border: 2px solid grey;
+    text-align: center;
+    background-color: rgb(47, 13, 104);
+}
+
+.results > p:first-of-type {
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: 550;
+    color: rgb(228, 236, 243);   
+}
+
+.results h2 {
+    margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: 550;
+    color: aliceblue;
+}
+
+.results h2 img {
+    width: 32px;
+    height: auto;
+    margin-left: 20px;
+}
+
+.results > p:last-of-type {
+    color: azure;
+    font-size: 18px;
+    font-weight: 550;
+    margin-bottom: 40px;
+}
+
+.cartify-results-cards {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cartify-result-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 210px;
+    width: 250px;
+    border: 2px solid rgb(48, 45, 173);
+    border-radius: 25px;
+    color: rgb(28, 57, 142);
+    background-color: aliceblue;
+    margin-bottom: 40px;
+    transition: border-color 0.15s ease, transform 0.15s ease,
+                    color 0.15s ease;
+}
+
+.cartify-result-card p {
+    width: 200px;  
+    text-align: center;  
+    font-size: 18px;
+    font-weight: 510;
+    transition: border-color 0.15s ease, transform 0.15s ease,
+                    color 0.15s ease;
+}
+
+
+.cartify-result-card img {
+    width: 50px;
+    height: auto;
+    background-color: rgb(194, 198, 207);
+    border-radius: 5px;
+}
+
+.cartify-result-card:hover {
+    transform: scale(1.2);
+    background-color: rgb(81, 27, 175, 0.9);
+    color: aliceblue;
+}
+
+.cartify-choice {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 100px;
+}
+
+.reason-card {
+    width: 330px;
+    height: 390px;
+    border: 2px solid grey;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(47, 13, 104);
+}
+
+.reason-card:first-of-type:hover {
+    border: 3px solid red;
+    transform: scale(1.05);
+}
+
+.reason-card:last-of-type:hover {
+    border: 6px solid green;
+    transform: scale(1.05);
+}
+
+.title p {
+    margin-bottom: 15px;
+    color: aliceblue;
+    font-size: 26px;
+    font-weight: 550;
+}
+
+.title img {
+    width: 100px;
+    height: auto;
+    margin: 15px;
+}
+
+.reason-card ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 20px;
+}
+
+.reason-card ul li {
+    color: azure;
+    font-size: 18px;
+    font-weight: 550;
+    margin-bottom: 15px;
+}
+
+.traditional-store,
+.the-cartify-way {
+    margin-right: 10px;
+    font-size: 24px;
+    border-radius:15px;
+}
+
+.traditional-store {
+    background-color: red;
+}
+
+.the-cartify-way {
+    background-color: green;
+}
+
+.cartify-next-steps {
+    background-color: rgb(209, 219, 219);
+    border: 2px solid gray;
+    padding: 50px;
+    text-align: center;
+}
+
+.cartify-next-steps h2 {
+    color: rgb(47, 13, 104);
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.cartify-next-steps p {
+    margin: 10px  auto 25px auto;
+    font-size: 18px;
+    font-weight: 550;
+    color: rgb(48, 45, 173);
+}
+
+.quick-next-steps {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.quick-next-steps button {
+    font-size: 32px;
+    padding: 12px 24px;
+    border-radius: 64px;
+}
+
+.quick-next-steps button:hover {
+    transform: scale(1.08);
+    cursor: pointer;
+}
+
+.quick-next-steps button:first-child {
+    background-color: rgb(47, 13, 104);
+    color: aliceblue;
+    font-weight: 550;
+}
+
+.quick-next-steps button:last-child {
+    color: rgb(47, 13, 104);
+    background-color: aliceblue;
+    font-weight: 550;
+}

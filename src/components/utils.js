@@ -27,7 +27,21 @@ function countPriceRecursive(itemsArray) {
 
 console.log(countItemsRecursive(productsArray)); // 17
 
-export { formatNumber, countItemsRecursive, countPriceRecursive };
+function trimByWords(text, maxWords = 25) {
+  if (!text) return "";
+
+  const words = text.trim().split(/\s+/);
+
+  if (words.length <= maxWords) {
+    return text;
+  }
+
+  return words.slice(0, maxWords).join(" ") + "…";
+}
+
+export { formatNumber, countItemsRecursive, countPriceRecursive, trimByWords };
+
+// Sample of data returned. Use for running tests.
 
 let shoppingCartProducts = [
     {

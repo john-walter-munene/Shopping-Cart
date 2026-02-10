@@ -1,0 +1,17 @@
+.error-page-text {
+    min-height: calc(100vh - 343px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.error-page-text p {
+    font-size: 32px;
+    font-weight: bold;
+    color: rgb(47, 13, 104);
+    border: 2px solid;
+    border-radius: 20px;
+    background-color: rgb(221, 225, 247);
+    padding: 10px;
+}

@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-
-import './shop.css'
-import { formatNumber, countItemsRecursive } from "../utils";
-import { NavBar } from "../NavBar";
-import { Footer } from "../Footer";
+import styles from "../assets/styles/Shop.module.css";
+import { formatNumber, countItemsRecursive, trimByWords } from "./utils";
+import { NavBar } from "./NavBar";
+import { Footer } from "./Footer";
 
 function ShoppingPage({ products, setProducts, cart, setCart }) {
     const [error, setError] = useState(null);
@@ -53,7 +52,7 @@ function ShoppingPageWrapper({ content, cartItemsCount }) {
     return (
          <div className="shop-page" role="main">
             <NavBar displayCartItemsCount={true} cartItemsCount={cartItemsCount}  />
-            <div className="products-in-shop">{content}</div>
+            <div className={styles["products-in-shop"]}>{content}</div>
             <Footer />
         </div>
     );
@@ -61,35 +60,20 @@ function ShoppingPageWrapper({ content, cartItemsCount }) {
 
 function LoadingProducts() {
     return (
-        <div className="loading-products">
+        <div className={styles["loading-products"]} data-testid="loading-products" >
             <p>Hang on, loading shop products</p>
-            <div className="loading-spinner"></div>
+            <div className={styles["spinner"]}></div>
         </div>
     );
 }
 
 function ErrorHandler() {
     return (
-        <div className="products-load-error">
-            <p>Application error, we are working to resolve it. In the meantime, please try refreshing the page.</p>
+        <div className={styles["products-load-error"]} data-testid="products-load-error" >
+            <p>Application error, we are working to resolve it. In the meantime, please try refreshing the page...👨‍💻</p>
         </div>
     );
 }
-
-let sampleProductCard = {
-    "id": 1,
-    "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-    "price": 109.95,
-    "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-    "category": "men's clothing",
-    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png",
-    "rating": {
-        "rate": 3.9,
-        "count": 120
-    }
-}
-
-typeof sampleProductCard;
 
 function ProductCard({ product, cart, setCart }) {
     const [quantity, setQuantity] = useState(0);
@@ -141,21 +125,21 @@ function ProductCard({ product, cart, setCart }) {
     }
 
     return (
-        <div className="product-card" data-testid={id}>
+        <div className={styles["product-card"]} data-testid={`product-${product.id}`}>
             <img src={image} alt={title} />
-            <div className="product-details">
+            <div className={styles["product-details"]}>
                 <h3>{title}</h3>
-                <p>{description}</p>
+                <p>{trimByWords(description)}</p>
                 <p>${price}</p>
             </div>
 
-            <div className="product-quantity">
-                <label htmlFor={`quantity-${id}`}><p>quantity</p></label>
+            <div className={styles["product-quantity"]}>
+                <label htmlFor={`quantity-${id}`}><p>Quantity:</p></label>
                 <input type="number" id={`quantity-${id}`} value={quantity} min={0} max={999}
                     onChange={(event) => handleQuantityChange(event)} onBlur={handleBlur} />
             </div>
-            <div className="product-price"> Final Price ${finalPrice}</div>
-            <button className="add-to-cart" onClick={handleAddToCart}>Add to cart</button>
+            <div className={styles["product-price"]}> Final Price ${finalPrice}</div>
+            <button className={styles["add-to-cart"]} onClick={handleAddToCart}>Add to cart</button>
         </div>
     );
 }

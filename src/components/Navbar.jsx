@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
-// import { Link } from "react-router";
 import { Link } from "react-router-dom";
+import styles from "../assets/styles/Navbar.module.css";
+
+import cartifyIcon from '/src/assets/icons/Cart.png';
+import photoOfJohnWalter from '/src/assets/images/John Walter.jpeg';
 
 const navLinks = [
     { label: "Home", path: "/" },
@@ -9,7 +12,7 @@ const navLinks = [
 ];
 
 function NavigationButton({ label, path }) {
-    return (<Link to={path} className="navigation-button" data-testid={label}>{label}</Link>);
+    return (<Link to={path} className={styles["navigation-button"]} data-testid={label}>{label}</Link>);
 }
 
 NavigationButton.propTypes = {
@@ -21,19 +24,19 @@ function NavBar({ navigationLinks = navLinks, displayCartItemsCount=false, cartI
 
     
     return (
-        <div className="application-header">
+        <div className={styles["application-header"]}>
             <ApplicationHead />
 
-            <nav className="navigation-bar" role="navigation">
+            <nav className={styles["navigation-bar"]} role="navigation">
                 {navigationLinks.map(link => (
                     <NavigationButton key={link.path} label={link.label} path={link.path} />
                 ))}
             </nav>
 
             {displayCartItemsCount && 
-                <div className="cart-items-count-display" data-testid="cart-items-count">
-                    <img src="" alt="app devloper" />
-                    <img src="" alt="cart-icon" />
+                <div className={styles["cart-items-count-display"]} data-testid="cart-items-count">
+                    <img src={photoOfJohnWalter} alt="app devloper" />
+                    <img src={cartifyIcon} alt="cart-icon" />
                     <p>{cartItemsCount}</p>
                 </div>}
         </div>
@@ -48,8 +51,8 @@ NavBar.propTypes = {
 
 function ApplicationHead() {
     return (
-        <div className="cartify-heading">
-            <img src="" alt="" />
+        <div className={styles["cartify-heading"]}>
+            <img src={cartifyIcon} alt="Cartify Icon" />
             <h1>Cartify</h1>
         </div>
     );

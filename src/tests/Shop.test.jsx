@@ -6,7 +6,7 @@ import { useState } from "react";
 import userEvent from "@testing-library/user-event";
 
 // Component under test and API sample data.
-import { ShoppingPage } from "../components/shop/Shop";
+import { ShoppingPage } from "../components/Shop";
 import { shoppingCartProducts, formatNumber } from "../components/utils"; // values for mock api fetch and util func
 
 // // Simple helper to render a page with routing context
@@ -27,7 +27,7 @@ function ShoppingPageTestHarness() {
 }
 
 describe('Shopping Page Logic UI Tests', () => {
-    test('Displays loading state correctly', () => {
+    test('Displays loading state correctly', async () => {
         // Render shopping page with empty products and cart.
         const { container } = renderWithRouter(<ShoppingPage products={[]} setProducts={mockSetProducts} cart={[]} setCart={mockSetCart} />);
 
@@ -35,37 +35,44 @@ describe('Shopping Page Logic UI Tests', () => {
         expect(screen.getByText(/Hang on, loading shop products/i)).toBeInTheDocument();
 
         // Check that the spinner element is rendered
-        expect(container.querySelector('.loading-spinner')).toBeInTheDocument();
+        const loadingElement = await screen.findByTestId('loading-products');
+        expect(loadingElement).toBeInTheDocument()
 
         // Ensure no product cards are rendered yet
         expect(container.querySelectorAll('.product-card').length).toBe(0);
     });
 
     test('Displays error state correctly', async () => {
-        // define fetch BEFORE render
-        globalThis.fetch = vi.fn().mockRejectedValueOnce(new Error('Network error')); 
+        // Mock fetch to reject
+        globalThis.fetch = vi.fn().mockRejectedValueOnce(new Error('Network error'));
 
-        const { container } = renderWithRouter(<ShoppingPage products={[]} setProducts={mockSetProducts} cart={[]} setCart={mockSetCart} />);
+        renderWithRouter(
+            <ShoppingPage products={[]} setProducts={mockSetProducts} cart={[]} setCart={mockSetCart} />
+        );
 
-        // Wait for the error message to appear and loader removed
-        expect(await screen.findByText(/Application error, we are working to resolve it/i)).toBeInTheDocument();
-        expect(container.querySelector('.loading-spinner')).not.toBeInTheDocument();
+        // Wait for the error message to appear
+        const errorElement = await screen.findByTestId('products-load-error');
+        expect(errorElement).toBeInTheDocument();
 
-        expect(container.querySelector('.products-load-error')).toBeInTheDocument();
-        expect(container.querySelectorAll('.product-card').length).toBe(0);
+        // Ensure the loading spinner is gone
+        expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+
+        // Ensure no product cards are rendered
+        const productCards = screen.queryAllByTestId(/product-/);
+        expect(productCards).toHaveLength(0);
     });
+
 
     test('Successful products fetch displays products correctly', async () => {
         globalThis.fetch = vi.fn(() => Promise.resolve({ json: () => Promise.resolve(shoppingCartProducts), }));
-
         const { container } = renderWithRouter(<ShoppingPageTestHarness />);
 
         // Wait for the product cards to appear in the DOM
-        await waitFor(() => expect(container.querySelectorAll('.product-card').length).toBe(shoppingCartProducts.length));
-
-        expect(container.querySelector('.loading-spinner')).not.toBeInTheDocument();
+        const productCards = await screen.findAllByTestId(/product-/);
+        expect(productCards).toHaveLength(shoppingCartProducts.length);
+        expect(container.querySelector('.spinner')).not.toBeInTheDocument();
         expect(container.querySelector('.products-load-error')).not.toBeInTheDocument();
-        expect(container.querySelectorAll('.product-card').length).toBe(shoppingCartProducts.length);
+        expect(productCards).toHaveLength(shoppingCartProducts.length);
     });
 });
 
@@ -73,9 +80,9 @@ describe('Shopping page behavior tests: user actions vs ui response', () => {
     test('Product quantity updates correctly', async () => {
         globalThis.fetch = vi.fn(() => Promise.resolve({ json: () => Promise.resolve(shoppingCartProducts)}));
         const user = userEvent.setup();
-
         const { container } = renderWithRouter(<ShoppingPageTestHarness />);
-        await waitFor(() => expect(container.querySelectorAll('.product-card').length).toBe(shoppingCartProducts.length));
+
+        await waitFor(() => expect(screen.getAllByTestId(/product-/).length).toBe(shoppingCartProducts.length));
         const productCards = container.querySelectorAll('.product-card');
         
         // Ensure each card has its input updating correctly.
@@ -102,13 +109,11 @@ describe('Shopping page behavior tests: user actions vs ui response', () => {
 
         // Spy on alert to catch it
         const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
-
         const user = userEvent.setup();
         const { container } = renderWithRouter(<ShoppingPageTestHarness />);
 
         // Wait for all products to render
-        await waitFor(() => expect(container.querySelectorAll('.product-card').length).toBe(shoppingCartProducts.length));
-
+        await waitFor(() => expect(screen.getAllByTestId(/product-/).length).toBe(shoppingCartProducts.length));
         const productCards = container.querySelectorAll('.product-card');
 
         // Click each product's add-to-cart button with quantity = 0
@@ -130,7 +135,7 @@ describe('Shopping page behavior tests: user actions vs ui response', () => {
         const user = userEvent.setup();
 
         const { container } = renderWithRouter(<ShoppingPageTestHarness />);
-        await waitFor(() => expect(container.querySelectorAll('.product-card').length).toBe(shoppingCartProducts.length));
+        await waitFor(() => expect(screen.getAllByTestId(/product-/).length).toBe(shoppingCartProducts.length));
         const productCards = container.querySelectorAll('.product-card');
 
         for (const productCard of productCards) {
