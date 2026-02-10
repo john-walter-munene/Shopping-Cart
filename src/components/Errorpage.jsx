@@ -1,4 +1,4 @@
-import { NavBar } from "./NavBar.jsx";
+import { NavBar } from "./Navbar.jsx";
 import { Footer } from "./Footer.jsx";
 import styles from "../assets/styles/Error.module.css";
 

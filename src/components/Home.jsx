@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 
 // Components and styles
-import { NavBar } from "./NavBar.jsx";
+import { NavBar } from "./Navbar.jsx";
 import { Footer } from "./Footer.jsx";
 import styles from "../assets/styles/Home.module.css";
 
